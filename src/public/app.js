@@ -19,19 +19,20 @@ function handleCreateInitialTasks(array) {
 
 taskArea.addEventListener("click", async (event) => {
   if (event.target.tagName !== "INPUT") return;
+  const name_task = event.target.parentNode.getAttribute("id-task");
 
   if (event.target.checked) {
     console.log("Check");
-    handleChangeState(true);
+    handleChangeState(true, name_task);
     return;
   } else {
     console.log("Not Check");
-    handleChangeState(false);
+    handleChangeState(false, name_task);
     return;
   }
 });
 
-function handleChangeState(taskState) {
+function handleChangeState(taskState, name_task) {
   fetch("/todo", {
     method: "PATCH",
     headers: {
@@ -39,7 +40,7 @@ function handleChangeState(taskState) {
     },
     body: JSON.stringify({
       state: taskState,
-      nameTask: "example",
+      nameTask: name_task,
     }),
   });
 }
