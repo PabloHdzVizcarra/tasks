@@ -10,13 +10,38 @@ fetch("/todo")
   });
 
 function handleCreateInitialTasks(array) {
-  console.log(array);
-
   for (let index = 0; index < array.length; index++) {
     const element = array[index];
-    const task = createTask(element.text, element.id);
+    const task = createTask(element.text, element.state);
     taskArea.insertAdjacentHTML("afterbegin", task);
   }
+}
+
+taskArea.addEventListener("click", async (event) => {
+  if (event.target.tagName !== "INPUT") return;
+
+  if (event.target.checked) {
+    console.log("Check");
+    handleChangeState(true);
+    return;
+  } else {
+    console.log("Not Check");
+    handleChangeState(false);
+    return;
+  }
+});
+
+function handleChangeState(taskState) {
+  fetch("/todo", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      state: taskState,
+      nameTask: "example",
+    }),
+  });
 }
 
 form.addEventListener("submit", (event) => {
@@ -50,7 +75,7 @@ function createTasks(event, input) {
     });
 }
 
-function createTask(text) {
+function createTask(text, state) {
   return `
   <li class="list-group-item" id-task="${text}">
     <input
@@ -58,7 +83,6 @@ function createTask(text) {
       type="checkbox"
       value=""
       aria-label="..."
-    />
-    ${text}
-  </li>`;
+      ${state ? "checked" : ""}
+    />${text}</li>`;
 }
