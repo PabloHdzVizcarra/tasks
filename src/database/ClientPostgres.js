@@ -62,6 +62,20 @@ class ClientPostgreSQL {
       console.error(error.stack);
     }
   }
+
+  static async delete(task_name) {
+    const query = `
+      DELETE FROM task
+      WHERE task_name = '${task_name}'
+    `;
+
+    try {
+      const result = await this.client.query(query);
+      return result;
+    } catch (error) {
+      console.error(error.stack);
+    }
+  }
 }
 
 module.exports = ClientPostgreSQL;
