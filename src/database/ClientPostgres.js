@@ -33,20 +33,19 @@ class ClientPostgreSQL {
     //   });
   }
 
-  async insert(data) {
+  static async insert(data) {
     const query = `
-    INSERT INTO task (text, state)
-    VALUES (${data.text}, ${data.state})
+    INSERT INTO task(text, state)
+    VALUES ('${data.text}', '${data.state}')
     `;
 
     this.client.query(query, (err, res) => {
       if (err) {
         console.error(err);
         return;
-      } else {
-        console.log("Data insert successful");
-        client.end();
       }
+
+      console.log("Data insert successful");
     });
   }
 }

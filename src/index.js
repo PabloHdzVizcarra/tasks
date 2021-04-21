@@ -1,7 +1,7 @@
 const { app } = require("./server");
 const path = require("path");
 const controllerTodo = require("./routes/todoRouter");
-const ClientPostgreSQL = require("./database/Client");
+const ClientPostgreSQL = require("./database/ClientPostgres");
 
 ClientPostgreSQL.connect();
 
