@@ -21,11 +21,12 @@ taskArea.addEventListener("click", async (event) => {
   if (event.target.tagName === "BUTTON") {
     const task_name = event.target.parentNode.getAttribute("id-task");
     handleDeleteTask(task_name);
+    event.target.parentNode.remove();
     return;
   }
 
   if (event.target.tagName !== "INPUT") return;
-  const name_task = event.target.parentNode.getAttribute("id-task");
+  const name_task = event.target.parentNode.parentNode.getAttribute("id-task");
 
   if (event.target.checked) {
     console.log("Check");
