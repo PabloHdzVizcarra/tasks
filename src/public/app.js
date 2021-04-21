@@ -18,6 +18,12 @@ function handleCreateInitialTasks(array) {
 }
 
 taskArea.addEventListener("click", async (event) => {
+  if (event.target.tagName === "BUTTON") {
+    const task_name = event.target.parentNode.getAttribute("id-task");
+    handleDeleteTask(task_name);
+    return;
+  }
+
   if (event.target.tagName !== "INPUT") return;
   const name_task = event.target.parentNode.getAttribute("id-task");
 
@@ -31,6 +37,10 @@ taskArea.addEventListener("click", async (event) => {
     return;
   }
 });
+
+function handleDeleteTask(task_name) {
+  console.log(task_name);
+}
 
 function handleChangeState(taskState, name_task) {
   fetch("/todo", {
@@ -78,12 +88,17 @@ function createTasks(event, input) {
 
 function createTask(text, state) {
   return `
-  <li class="list-group-item" id-task="${text}">
+  <li class="list-group-item d-flex justify-content-between" id-task="${text}">
+    <div class="d-flex">
     <input
       class="form-check-input me-1"
       type="checkbox"
       value=""
       aria-label="..."
       ${state ? "checked" : ""}
-    />${text}</li>`;
+    />
+    <p class="m-0">${text}</p>
+    </div>
+    <button class="btn btn-outline-danger btn-sm fw-bold">X</button>
+    </li>`;
 }
