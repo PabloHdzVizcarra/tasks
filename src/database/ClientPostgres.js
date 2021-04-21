@@ -21,7 +21,7 @@ class ClientPostgreSQL {
 
   static async insert(data) {
     const query = `
-    INSERT INTO task(text, state)
+    INSERT INTO task(task_name, state)
     VALUES ('${data.text}', '${data.state}')
     `;
 
@@ -43,6 +43,21 @@ class ClientPostgreSQL {
     try {
       const result = await this.client.query(query);
       return result.rows;
+    } catch (error) {
+      console.error(error.stack);
+    }
+  }
+
+  static async update(task_state, task_name) {
+    const query = `
+      UPDATE task
+      SET state = ${task_state}
+      WHERE task_name = '${task_name}'
+    `;
+
+    try {
+      const result = await this.client.query(query);
+      return result;
     } catch (error) {
       console.error(error.stack);
     }

@@ -12,7 +12,7 @@ fetch("/todo")
 function handleCreateInitialTasks(array) {
   for (let index = 0; index < array.length; index++) {
     const element = array[index];
-    const task = createTask(element.text, element.state);
+    const task = createTask(element.task_name, element.state);
     taskArea.insertAdjacentHTML("afterbegin", task);
   }
 }
