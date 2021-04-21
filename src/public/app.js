@@ -9,6 +9,9 @@ form.addEventListener("submit", (event) => {
 function createTasks(event, input) {
   event.preventDefault();
   const text_to_input = input.value;
+  if (!text_to_input) {
+    return console.log("input value is not valid");
+  }
   const element = createTask(input.value);
   taskArea.insertAdjacentHTML("afterbegin", element);
 
