@@ -8,7 +8,21 @@ services:
     container_name: api-nodejs
     environment:
       - PORT=8000
+      - DB_URL=database
     ports:
       - "8000:8000"
     volumes:
       - ./src:/usr/src/app/src
+    depends_on:
+      - database
+
+  database:
+    image: postgres:13.2-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: admin
+    volumes:
+      - /database/postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"

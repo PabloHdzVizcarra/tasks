@@ -8,7 +8,6 @@ form.addEventListener("submit", (event) => {
 
 function createTasks(event, input) {
   event.preventDefault();
-  console.log(input.value);
   const element = createTask(input.value);
 
   taskArea.insertAdjacentHTML("afterbegin", element);
