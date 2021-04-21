@@ -39,6 +39,14 @@ taskArea.addEventListener("click", async (event) => {
 });
 
 function handleDeleteTask(task_name) {
+  fetch(`/todo/${task_name}`, {
+    method: "DELETE",
+  })
+    .catch(console.log)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    });
   console.log(task_name);
 }
 
