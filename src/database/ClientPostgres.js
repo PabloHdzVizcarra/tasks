@@ -17,20 +17,6 @@ class ClientPostgreSQL {
     this.client.connect().then((_) => {
       console.log("Connected to Postgres");
     });
-
-    // this.client
-    //   .query(
-    //     `
-    //   CREATE TABLE task (
-    //     id INT PRIMARY KEY,
-    //     text VARCHAR NOT NULL,
-    //     state BOOLEAN
-    //   );
-    // `
-    //   )
-    //   .then(() => {
-    //     console.log("table is successfully created");
-    //   });
   }
 
   static async insert(data) {
@@ -47,6 +33,19 @@ class ClientPostgreSQL {
 
       console.log("Data insert successful");
     });
+  }
+
+  static async getAll() {
+    const query = `
+      SELECT * FROM task;
+    `;
+
+    try {
+      const result = await this.client.query(query);
+      return result.rows;
+    } catch (error) {
+      console.error(error.stack);
+    }
   }
 }
 
