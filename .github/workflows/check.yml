@@ -1,0 +1,11 @@
+name: check-action
+on: [push]
+
+jobs:
+  check-code:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          node-version: 12
+      - run: npm ci
