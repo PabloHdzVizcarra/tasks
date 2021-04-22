@@ -14,9 +14,14 @@ class ClientPostgreSQL {
       port: "5432",
     });
 
-    this.client.connect().then((_) => {
-      console.log("Connected to Postgres");
-    });
+    this.client
+      .connect()
+      .then((_) => {
+        console.log("Connected to Postgres");
+      })
+      .catch((error) => {
+        console.log("Not connected to database");
+      });
   }
 
   static async insert(data) {
@@ -27,7 +32,7 @@ class ClientPostgreSQL {
 
     this.client.query(query, (err, res) => {
       if (err) {
-        console.error(err);
+        console.log("err");
         return;
       }
 
